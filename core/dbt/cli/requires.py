@@ -102,7 +102,7 @@ def preflight(func):
         # Logging
         callbacks = ctx.obj.get("callbacks", [])
         setup_event_logger(flags=flags, callbacks=callbacks)
-        get_event_manager().defer_warn_errors = flags.SHOW_ALL_WARN_ERRORS
+        get_event_manager().defer_warn_errors = getattr(flags, "SHOW_ALL_WARN_ERRORS", False)
 
         # Tracking
         initialize_from_flags(flags.SEND_ANONYMOUS_USAGE_STATS, flags.PROFILES_DIR)
@@ -184,8 +184,6 @@ def postflight(func):
 
         try:
             result, success = func(*args, **kwargs)
-            if get_flags().SHOW_ALL_WARN_ERRORS:
-                raise_deferred_warn_errors()
         except FailFastError as e:
             fire_event(MainEncounteredError(exc=str(e)))
             raise ResultExit(e.result)

@@ -371,6 +371,7 @@ class ProjectFlags(ExtensibleDbtClassMixin):
     require_valid_schema_from_generate_schema_name: bool = False
     require_sql_header_in_test_configs: bool = False
     support_custom_ref_kwargs: bool = False
+    show_all_warn_errors: bool = False
 
     @property
     def project_only_flags(self) -> Dict[str, Any]:
@@ -392,6 +393,7 @@ class ProjectFlags(ExtensibleDbtClassMixin):
             "require_valid_schema_from_generate_schema_name": self.require_valid_schema_from_generate_schema_name,
             "require_sql_header_in_test_configs": self.require_sql_header_in_test_configs,
             "support_custom_ref_kwargs": self.support_custom_ref_kwargs,
+            "show_all_warn_errors": self.show_all_warn_errors,
         }
 
 
